@@ -28,10 +28,11 @@
                         <td>{{ $league->courts }}</td>
                         <td>{{ $league->players }}</td>
                         <td>{{ $league->rounds }}</td>
-                        <td>{{ $league->start_date }}</td>>
+                        <td>{{ $league->start_date }}</td>
                         <td><div class="dropdown">
                             <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><span class="material-symbols-outlined">more_vert</span></button>
                             <div class="dropdown-menu">
+                                <a class="dropdown-item" href="{{route('leagues.show', $league) }}"><span class="material-symbols-outlined">edit</span>Agregar jugadores</a>
                                 <a class="dropdown-item" href="{{route('leagues.edit', $league) }}"><span class="material-symbols-outlined">edit</span>Edit</a>
                                 <a class="dropdown-item" href="javascript:void(0);"><span class="material-symbols-outlined">delete</span> Delete</a>
                                 </div>

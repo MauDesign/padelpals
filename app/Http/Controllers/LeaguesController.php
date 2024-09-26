@@ -39,9 +39,10 @@ class LeaguesController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(League $league)
     {
-        //
+
+        return view('leagues.show', ['league'=> $league, 'players' => $league->league_players]);
     }
 
     /**

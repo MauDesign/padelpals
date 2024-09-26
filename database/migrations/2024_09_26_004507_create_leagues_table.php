@@ -17,7 +17,8 @@ return new class extends Migration
             $table->string('courts');
             $table->string('players');
             $table->string('rounds');
-            $table->string('start_date');
+            $table->date('start_date');
+
             $table->timestamps();
         });
     }
