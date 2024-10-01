@@ -14,11 +14,6 @@ return new class extends Migration
         Schema::create('players', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('surname');
-            $table->string('email');
-            $table->string('phone');
-            $table->unsignedBigInteger('league_id');
-            $table->timestamps();
         });
     }
 
