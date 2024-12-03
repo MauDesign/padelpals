@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Club;
+use GuzzleHttp\Promise\Create;
 use Illuminate\Http\Request;
+use App\Http\Requests\CreateClubRequest;
 
 class ClubController extends Controller
 {
@@ -21,7 +23,7 @@ class ClubController extends Controller
      */
     public function create()
     {
-        //
+        return view('clubs.create',['club' => new Club]);
     }
 
     /**
@@ -29,7 +31,7 @@ class ClubController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Club::create($request->validated());
     }
 
     /**

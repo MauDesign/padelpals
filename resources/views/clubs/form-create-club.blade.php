@@ -16,7 +16,8 @@
             @enderror
         </div>
     </div>
-    div class="form-floating form-floating-outline">
+
+    <div class="form-floating form-floating-outline">
         <input type="text" name="city" class="form-control" id="city" aria-describedby="city" value="{{old('city', $club->city)}}" />
         <label for="city">Ciudad</label>
         <div class="cityHelp" class="form-text">

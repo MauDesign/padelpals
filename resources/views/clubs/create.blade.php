@@ -4,7 +4,7 @@
         @csrf
         <h1>Crear liga</h1>
 
-        @include('clubs.form-create-league')
+        @include('clubs.form-create-club')
         <div class="mt-4 align-content-end">
             <a href="{{route('clubs.index')}}"  class="btn btn-outline-secondary" >Cancel</a>
             <button type="submit" class="btn btn-primary">Agregar</button>
