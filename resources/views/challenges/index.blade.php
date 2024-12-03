@@ -21,7 +21,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($leagues as $league )
+                    @foreach ($challenges as $challenge )
                     <tr>
                         <td>{{ $league->id }}</td>
                         <td>{{ $league->name }}</td>

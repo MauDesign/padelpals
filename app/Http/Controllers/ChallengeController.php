@@ -12,7 +12,8 @@ class ChallengeController extends Controller
      */
     public function index()
     {
-        //
+        $challenges = Challenge::all();
+        return view('challenges.index', compact('challenges'));
     }
 
     /**
@@ -20,7 +21,7 @@ class ChallengeController extends Controller
      */
     public function create()
     {
-        //
+        return view('challenges.create');
     }
 
     /**
