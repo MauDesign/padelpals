@@ -35,6 +35,18 @@
       </a>
     </li>
     <li class="menu-item ">
+      <a href="{{route('challenges.index')}}" class="menu-link ">
+        <i class="menu-icon ri-mail-line"></i>
+        <div>Challenges</div>
+      </a>
+    </li>
+    <li class="menu-item ">
+      <a href="{{route('clubs.index')}}" class="menu-link ">
+        <i class="menu-icon ri-mail-line"></i>
+        <div>Clubs</div>
+      </a>
+    </li>
+    <li class="menu-item ">
       <a href="javascript:void(0)" class="menu-link ">
         <i class="menu-icon ri-mail-line"></i>
         <div>Rankigs</div>

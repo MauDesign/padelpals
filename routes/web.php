@@ -31,6 +31,20 @@ Route::middleware('auth')->group(function () {
     Route::get('/players/{player}',[PlayersController::class, 'show' ])->name('players.show');
     Route::get('/players/{player}/edit',[PlayersController::class, 'edit' ])->name('players.edit');
     Route::patch ('/players/{player}',[PlayersController::class, 'update' ])->name('players.update');
+
+    Route::get('/challenges', [LeaguesController::class, 'index'])->name('challenges.index');
+    Route::get('/challenges/create', [LeaguesController::class, 'create'])->name('challenges.create');
+    Route::post('/challenges',[LeaguesController::class, 'store' ])->name('challenges.store');
+    Route::get('/challenges/{challenge}',[LeaguesController::class, 'show' ])->name('challenges.show');
+    Route::get('/challenges/{challenge}/edit',[LeaguesController::class, 'edit' ])->name('challenges.edit');
+    Route::patch ('/challenges/{challenge}',[LeaguesController::class, 'update' ])->name('challenges.update');
+
+    Route::get('/clubs', [LeaguesController::class, 'index'])->name('clubs.index');
+    Route::get('/clubs/create', [LeaguesController::class, 'create'])->name('clubs.create');
+    Route::post('/clubs',[LeaguesController::class, 'store' ])->name('clubs.store');
+    Route::get('/clubs/{club}',[LeaguesController::class, 'show' ])->name('clubs.show');
+    Route::get('/clubs/{club}/edit',[LeaguesController::class, 'edit' ])->name('clubs.edit');
+    Route::patch ('/clubs/{club}',[LeaguesController::class, 'update' ])->name('clubs.update');
 });
 
 require __DIR__.'/auth.php';
