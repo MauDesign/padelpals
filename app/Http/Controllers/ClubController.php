@@ -6,7 +6,6 @@ use App\Models\Club;
 use GuzzleHttp\Promise\Create;
 use Illuminate\Http\Request;
 use App\Http\Requests\CreateClubRequest;
-
 class ClubController extends Controller
 {
     /**
@@ -29,9 +28,10 @@ class ClubController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(CreateClubRequest $request)
     {
         Club::create($request->validated());
+        return to_route('clubs.index');
     }
 
     /**

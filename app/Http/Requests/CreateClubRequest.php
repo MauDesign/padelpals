@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateLeaguesRequest extends FormRequest
+class CreateClubRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,12 +22,11 @@ class CreateLeaguesRequest extends FormRequest
     public function rules(): array
     {
         return [
-
                 'name' => ['required'],
                 'city' => ['required'],
-                'phone' => ['required'],
                 'email' => ['required'],
-                'adress' => ['required'],
+                'phone' => ['required'],
+                'address' => ['required'],
         ];
     }
 }
