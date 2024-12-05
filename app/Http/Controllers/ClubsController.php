@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Controller;
+use App\Http\Requests\CreateClubsRequest;
 use App\Models\Club;
-use GuzzleHttp\Promise\Create;
 use Illuminate\Http\Request;
-use App\Http\Requests\CreateClubRequest;
-class ClubController extends Controller
+
+class ClubsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -28,7 +29,7 @@ class ClubController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(CreateClubRequest $request)
+    public function store(CreateClubsRequest $request)
     {
         Club::create($request->validated());
         return to_route('clubs.index');
@@ -39,7 +40,7 @@ class ClubController extends Controller
      */
     public function show(Club $club)
     {
-        //
+        return view('clubs.show', ['club'=> $club,]);
     }
 
     /**

@@ -30,7 +30,7 @@
                         <td><div class="dropdown">
                             <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><span class="material-symbols-outlined">more_vert</span></button>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="{{route('clubs.edit', $league) }}"><span class="material-symbols-outlined">edit</span>Edit</a>
+                                <a class="dropdown-item" href="{{route('clubs.edit', $club) }}"><span class="material-symbols-outlined">edit</span>Edit</a>
                                 <a class="dropdown-item" href="javascript:void(0);"><span class="material-symbols-outlined">delete</span> Delete</a>
                                 </div>
                             </div>

@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Challenge;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Requests\ChallengeRequest;
 
 class ChallengeController extends Controller
 {
@@ -27,9 +29,10 @@ class ChallengeController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(ChallengeRequest $request)
     {
-        //
+        Challenge::create($request->validated());
+        return redirect()->route('challenges.index');
     }
 
     /**
