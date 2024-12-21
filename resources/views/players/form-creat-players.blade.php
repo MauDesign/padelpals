@@ -16,7 +16,7 @@
             @enderror
         </div>
     </div>
-    <div class="form-floating form-floating-outline">
+    <div class="form-floating form-floating-outline mt-4">
         <input type="text" name="Alias" class="form-control" id="Alias" aria-describedby="Alias" value="{{old('Alias', isset($player) ? $player->Alias : '' )}}" />
         <label for="Alias">Alias</label>
         <div class="AliasHelp" class="form-text">

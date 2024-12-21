@@ -23,7 +23,7 @@
                     @foreach ($players as $player )
                     <tr>
                         <td>{{ $player->id }}</td>
-                        <td>{{ $player->Nome }}</td>
+                        <td>{{ $player->name }}</td>
                         <td>{{ $player->Surname }}</td>
                         <td>{{ $player->Email }}</td>
                         <td>{{ $player->Phone }}</td>

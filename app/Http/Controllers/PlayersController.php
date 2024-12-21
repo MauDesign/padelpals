@@ -13,8 +13,9 @@ class PlayersController extends Controller
      */
     public function index()
     {
-        $players = Player::get();
-        return view('players.index', ['players' => $players]);
+        $players = Player::all();
+        return view('players.index', compact('players'));
+        //return view('players.index', ['players' => $players]);
     }
 
     /**
@@ -30,7 +31,13 @@ class PlayersController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Crear el nuevo jugador y guardar en la base de datos
+        $player = new Player();
+        $player->name = $request->Name;
+        $player->save(); // Esto guarda el jugador en la base de datos
+
+        // Redirigir con un mensaje de éxito
+        return redirect()->route('players.index')->with('success', 'Jugador agregado correctamente');
     }
 
     /**

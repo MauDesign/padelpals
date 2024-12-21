@@ -1,6 +1,6 @@
 <x-app-layout>
 <div class="container card pb-3">
-    <form action="{{ route('leagues.store') }}" method="POST">
+    <form action="{{ route('players.store') }}" method="POST">
         @csrf
         <h1>Crear Jugador</h1>
 
