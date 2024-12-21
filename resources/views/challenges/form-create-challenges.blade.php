@@ -6,7 +6,7 @@
     });
 
     var flatpickrTime = document.querySelector("#flatpickr-time");
-    flatpickrTime.flatpickr({ 
+    flatpickrTime.flatpickr({
         enableTime: true,
         noCalendar: true
     });
@@ -19,8 +19,8 @@
         <div class="nameHelp" class="form-text">
             @error('name')
             <small style="color:red;">{{ $message }}</small>
-            @enderror 
-        </div> 
+            @enderror
+        </div>
     </div>
     <div class="form-floating form-floating-    outline mt-4">
         <input  id="flatpickr-date" name="date" class="form-control" type="text" value="{{old('date', isset($challenge) ? $challenge->date : '')}}" style="z-index: 1110;"  > </input>
@@ -50,7 +50,7 @@
             @enderror
         </div>
     </div>
-    
+
     <div class="form-floating form-floating-outline mt-4">
         <input type="text" name="players" class="form-control" id="players" aria-describedby="players" value="{{ old('players', isset($challenge) ? $challenge->no_players : '') }}" readonly />
         <label for="players">Jugadores</label>
@@ -73,5 +73,5 @@
 </script>
 
 
-    
+
 
