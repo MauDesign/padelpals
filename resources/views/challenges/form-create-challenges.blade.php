@@ -42,7 +42,7 @@
     </div>
 
     <div class="form-floating form-floating-outline mt-4">
-        <input type="text" name="courts" class="form-control" id="courts" aria-describedby="courts" value="{{old('courts', isset($challenge) ? $challenge->courts : '') }}" oninput="calculatePlayers()" />
+        <input type="number" name="courts" class="form-control" id="courts" aria-describedby="courts" min="0" value="{{old('courts', isset($challenge) ? $challenge->courts : '') }}" oninput="calculatePlayers()" />
         <label for="courts">Canchas</label>
         <div class="courtsHelp" class="form-text">
             @error('courts')
@@ -52,7 +52,7 @@
     </div>
 
     <div class="form-floating form-floating-outline mt-4">
-        <input type="text" name="players" class="form-control" id="players" aria-describedby="players" value="{{ old('players', isset($challenge) ? $challenge->no_players : '') }}" readonly />
+        <input type="number" name="players" class="form-control" id="players" aria-describedby="players" value="{{ old('players', isset($challenge) ? $challenge->no_players : '') }}" readonly />
         <label for="players">Jugadores</label>
         <div class="playersHelp" class="form-text">
             @error('players')
@@ -60,18 +60,93 @@
             @enderror
         </div>
     </div>
+
+    <div class="form-floating form-floating-outline mt-4">
+
+        <div class="relative w-full" id="combobox">
+          <input
+            type="text"
+            id="input-box"
+            class="w-full px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            placeholder="Club"
+          />
+          <ul
+            id="dropdown"
+            class="list-none absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-md shadow-lg max-h-60 overflow-auto"
+            style="display: none; list-style-type: none;">
+          </ul>
+        </div>
+
+        <div class="clubHelp" class="form-text">
+            @error('clubs')
+            <small style="color:red;">{{ $message }}</small>
+            @enderror
+        </div>
+    </div>
+
     <script>
-    function calculatePlayers() {
-        const courtsInput = document.getElementById('courts');
-        const courtsValue = parseInt(courtsInput.value) || 0;
+        function calculatePlayers() {
+            const courtsInput = document.getElementById('courts');
+            const courtsValue = parseInt(courtsInput.value) || 0;
 
-        const playersValue = courtsValue * 4;
+            const playersValue = courtsValue * 4;
 
-        const playersInput = document.getElementById('players');
-        playersInput.value = playersValue;
-    }
-</script>
+            const playersInput = document.getElementById('players');
+            playersInput.value = playersValue;
+        }
+    </script>
 
+    <script>
+        const options = [
+            'Alpha', 'Star Paddle', 'Paddle Club', 'ARS Paddle', 'Rockford Hills'
+        ];
 
+        const inputBox = document.getElementById('input-box');
+        const dropdown = document.getElementById('dropdown');
+        let inputValue = '';
+        let filteredOptions = options;
+        let isOpen = false;
 
+        inputBox.addEventListener('input', handleInputChange);
 
+        document.addEventListener('mousedown', (event) => {
+          const combobox = document.getElementById('combobox');
+          if (!combobox.contains(event.target)) {
+            setIsOpen(false);
+          }
+        });
+
+        function handleInputChange(e) {
+          const value = e.target.value;
+          inputValue = value;
+
+          filteredOptions = options.filter(option =>
+            option.toLowerCase().includes(value.toLowerCase())
+          );
+
+          setIsOpen(true);
+          renderDropdown();
+        }
+
+        function handleOptionSelect(option) {
+          inputBox.value = option;
+          setIsOpen(false);
+          renderDropdown();
+        }
+
+        function setIsOpen(open) {
+          isOpen = open;
+          dropdown.style.display = open && filteredOptions.length > 0 ? 'block' : 'none';
+        }
+
+        function renderDropdown() {
+          dropdown.innerHTML = '';
+          filteredOptions.forEach(option => {
+            const listItem = document.createElement('li');
+            listItem.textContent = option;
+            listItem.addEventListener('click', () => handleOptionSelect(option));
+            listItem.classList.add('px-4', 'py-2', 'text-gray-700', 'hover:bg-blue-100', 'cursor-pointer');
+            dropdown.appendChild(listItem);
+          });
+        }
+    </script>
