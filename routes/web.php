@@ -11,6 +11,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get ('/api/clubs/list',[ClubsController::class, 'list' ])->name('clubs.list');
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');

@@ -22,7 +22,7 @@ class ChallengeRequest extends FormRequest
     public function rules(): array
     {
         return [
-               'name', 'date', 'time','No_players', 'club_id', 'courts', 'type', 'endpoint', 'tie_break', 'matching' => ['required'],
+               'name', 'date', 'time','No_players', 'club_id', 'courts', 'type', 'endpoint', 'tie_break', 'matching',
         ];
     }
 }

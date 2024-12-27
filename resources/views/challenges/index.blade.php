@@ -28,7 +28,7 @@
                         <td>{{ $challenge->date }}</td>
                         <td>{{ $challenge->time }}</td>
                         <td>{{ $challenge->courts }}</td>
-                        <td>{{ $challenge->players }}</td>
+                        <td>{{ $challenge->no_players }}</td>
                         <td><div class="dropdown">
                             <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><span class="material-symbols-outlined">more_vert</span></button>
                             <div class="dropdown-menu">

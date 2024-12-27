@@ -31,8 +31,23 @@ class ChallengeController extends Controller
      */
     public function store(ChallengeRequest $request)
     {
-        Challenge::create($request->validated());
-        return redirect()->route('challenges.index');
+        $challenge = new Challenge();
+        $challenge->name = $request->name;
+        $challenge->date = $request->date;
+        $challenge->time = $request->time;
+        $challenge->courts = $request->courts;
+        $challenge->no_players = $request->players;
+        $challenge->club_id = $request->clubInputID;
+
+        $challenge->type = "";
+        $challenge->endpoint = "";
+        $challenge->tie_break = 0;
+        $challenge->matching = "";
+
+        echo "Challenge: " . $challenge;
+        $challenge->save(); // Esto guarda el jugador en la base de datos
+
+        return redirect()->route('challenges.index')->with('success', 'Challenge agregada correctamente');
     }
 
     /**
@@ -41,6 +56,7 @@ class ChallengeController extends Controller
     public function show(Challenge $challenge)
     {
         //
+        echo "HOLA";
     }
 
     /**

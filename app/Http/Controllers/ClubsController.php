@@ -15,7 +15,7 @@ class ClubsController extends Controller
     public function index()
     {
        $clubs = Club::all();
-         return view('clubs.index', compact('clubs'));
+        return view('clubs.index', compact('clubs'));
     }
 
     /**
@@ -65,5 +65,16 @@ class ClubsController extends Controller
     public function destroy(Club $club)
     {
         //
+    }
+
+    public function list(Request $request)
+    {
+        $search = $request->get('search', '');
+
+        // Buscar las opciones que coincidan con el valor 'search' (si lo hay)
+        $options = Club::where('name', 'like', "%$search%")->get();
+
+        // Devolver las opciones como JSON
+        return response()->json($options);
     }
 }

@@ -63,13 +63,16 @@
 
     <div class="form-floating form-floating-outline mt-4">
 
-        <div class="relative w-full" id="combobox">
+        <div class="w-full" id="combobox">
           <input
             type="text"
-            id="input-box"
-            class="w-full px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            id="clubInput"
+            name="club"
+            class="form-control"
             placeholder="Club"
+            autocomplete="off"
           />
+            <input id="clubInputID" name="clubInputID" style="display: none;"/>
           <ul
             id="dropdown"
             class="list-none absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-md shadow-lg max-h-60 overflow-auto"
@@ -97,56 +100,63 @@
     </script>
 
     <script>
-        const options = [
-            'Alpha', 'Star Paddle', 'Paddle Club', 'ARS Paddle', 'Rockford Hills'
-        ];
-
-        const inputBox = document.getElementById('input-box');
+        const clubInput = document.getElementById('clubInput');
+        const clubInputID = document.getElementById('clubInputID');
         const dropdown = document.getElementById('dropdown');
         let inputValue = '';
-        let filteredOptions = options;
+        let filteredOptions = [];
         let isOpen = false;
 
-        inputBox.addEventListener('input', handleInputChange);
+        clubInput.addEventListener('input', handleInputChange);
 
         document.addEventListener('mousedown', (event) => {
-          const combobox = document.getElementById('combobox');
-          if (!combobox.contains(event.target)) {
-            setIsOpen(false);
-          }
+            const combobox = document.getElementById('combobox');
+            if (!combobox.contains(event.target)) {
+                setIsOpen(false);
+            }
         });
 
         function handleInputChange(e) {
-          const value = e.target.value;
-          inputValue = value;
+            const value = e.target.value;
+            inputValue = value;
 
-          filteredOptions = options.filter(option =>
-            option.toLowerCase().includes(value.toLowerCase())
-          );
-
-          setIsOpen(true);
-          renderDropdown();
+            // Verificamos si el valor tiene más de 3 caracteres
+            if (value.length >= 2) {
+                // Hacer la solicitud AJAX al backend para obtener las opciones filtradas
+                fetch(`/api/clubs/list?search=${value}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        filteredOptions = data.map(option => option);  // Extraer el nombre de las opciones
+                        setIsOpen(true);
+                        renderDropdown();
+                    })
+                    .catch(error => console.error('Error fetching options:', error));
+            } else {
+                // Si el valor tiene 3 o menos caracteres, no mostrar el dropdown
+                setIsOpen(false);
+            }
         }
 
         function handleOptionSelect(option) {
-          inputBox.value = option;
-          setIsOpen(false);
-          renderDropdown();
+            clubInput.value = option.name;
+            clubInputID.value = option.id;
+            setIsOpen(false);
+            renderDropdown();
         }
 
         function setIsOpen(open) {
-          isOpen = open;
-          dropdown.style.display = open && filteredOptions.length > 0 ? 'block' : 'none';
+            isOpen = open;
+            dropdown.style.display = open && filteredOptions.length > 0 ? 'block' : 'none';
         }
 
         function renderDropdown() {
-          dropdown.innerHTML = '';
-          filteredOptions.forEach(option => {
-            const listItem = document.createElement('li');
-            listItem.textContent = option;
-            listItem.addEventListener('click', () => handleOptionSelect(option));
-            listItem.classList.add('px-4', 'py-2', 'text-gray-700', 'hover:bg-blue-100', 'cursor-pointer');
-            dropdown.appendChild(listItem);
-          });
+            dropdown.innerHTML = '';
+            filteredOptions.forEach(option => {
+                const listItem = document.createElement('li');
+                listItem.textContent = option.name;
+                listItem.addEventListener('click', () => handleOptionSelect(option));
+                listItem.classList.add('px-4', 'py-2', 'text-gray-700', 'hover:bg-blue-100', 'cursor-pointer');
+                dropdown.appendChild(listItem);
+            });
         }
     </script>
