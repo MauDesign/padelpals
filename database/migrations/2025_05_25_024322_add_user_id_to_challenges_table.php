@@ -12,10 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('challenges', function (Blueprint $table) {
-            //
-            $table->unsignedBigInteger("club_id");
-            $table->foreign('club_id')
-                  ->references('id')->on('clubs');
+            $table->foreignId('user_id')->nullable()->constrained()->onDelete('set null');
         });
     }
 
@@ -25,9 +22,8 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('challenges', function (Blueprint $table) {
-            //
-            $table->dropForeign(['club_id']);
-            $table->dropColumn('club_id');
+            $table->dropForeign(['user_id']);
+            $table->dropColumn('user_id');
         });
     }
 };

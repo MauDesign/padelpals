@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('challenges', function (Blueprint $table) {
             $table->id();
-            $table->club_id();
+            $table->foreignId('club_id')->constrained()->onDelete('cascade');
             $table->string('name');
             $table->date('date');
             $table->time('time');
@@ -24,9 +24,6 @@ return new class extends Migration
             $table->string('matching');
             $table->string('no_players');
             $table->timestamps();
-        });
-        Schema::table('matches', function (Blueprint $table) {
-            $table->foreignId('club_id')->after('date')->constrained();
         });
     }
 

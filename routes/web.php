@@ -36,12 +36,23 @@ Route::middleware('auth')->group(function () {
     Route::get('/players/{player}/edit',[PlayersController::class, 'edit' ])->name('players.edit');
     Route::patch ('/players/{player}',[PlayersController::class, 'update' ])->name('players.update');
 
-    Route::get('/challenges', [ChallengeController::class, 'index'])->name('challenges.index');
+    // Challenge routes requiring authentication
     Route::get('/challenges/create', [ChallengeController::class, 'create'])->name('challenges.create');
     Route::post('/challenges',[ChallengeController::class, 'store' ])->name('challenges.store');
-    Route::get('/challenges/{challenge}',[ChallengeController::class, 'show' ])->name('challenges.show');
     Route::get('/challenges/{challenge}/edit',[ChallengeController::class, 'edit' ])->name('challenges.edit');
     Route::patch ('/challenges/{challenge}',[ChallengeController::class, 'update' ])->name('challenges.update');
+    // Add destroy route if it exists and needs auth
+    // Route::delete('/challenges/{challenge}', [ChallengeController::class, 'destroy'])->name('challenges.destroy');
+
+    // Routes for managing players in a challenge
+    Route::get('/challenges/{challenge}/add-players-form', [ChallengeController::class, 'showAddPlayersForm'])->name('challenges.players.createForm');
+    Route::post('/challenges/{challenge}/players', [ChallengeController::class, 'addPlayer'])->name('challenges.players.store');
+    // Route for assigning/updating team (can be added later if needed)
+    // Route::post('/challenges/{challenge}/players/{challengePlayer}/assign-team', [ChallengeController::class, 'assignTeam'])->name('challenges.players.assignTeam');
+
+    // Routes for managing matches in a challenge
+    Route::get('/challenges/{challenge}/matches/create', [ChallengeController::class, 'createMatchForm'])->name('challenges.matches.create');
+    Route::post('/challenges/{challenge}/matches', [ChallengeController::class, 'storeMatch'])->name('challenges.matches.store');
 
     Route::get('/clubs', [ClubsController::class, 'index'])->name('clubs.index');
     Route::get('/clubs/create', [ClubsController::class, 'create'])->name('clubs.create');
@@ -50,5 +61,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/clubs/{club}/edit',[ClubsController::class, 'edit' ])->name('clubs.edit');
     Route::patch ('/clubs/{club}',[ClubsController::class, 'update' ])->name('clubs.update');
 });
+
+// Publicly accessible challenge routes
+Route::get('/challenges', [ChallengeController::class, 'index'])->name('challenges.index');
+Route::get('/challenges/{challenge}',[ChallengeController::class, 'show' ])->name('challenges.show');
 
 require __DIR__.'/auth.php';

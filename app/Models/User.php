@@ -4,12 +4,31 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
     use HasFactory, Notifiable;
+
+    /**
+     * The roles that belong to the user.
+     */
+    public function roles(): BelongsToMany
+    {
+        return $this->belongsToMany(Role::class);
+    }
+
+    /**
+     * Check if the user has a specific permission.
+     */
+    public function hasPermission(Permission $permission): bool
+    {
+        return $this->roles()->whereHas('permissions', function ($query) use ($permission) {
+            $query->where('name', $permission->name);
+        })->exists();
+    }
 
     /**
      * The attributes that are mass assignable.
@@ -43,5 +62,13 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    /**
+     * Get the challenge entries for the user.
+     */
+    public function challengeEntries()
+    {
+        return $this->hasMany(ChallengePlayer::class);
     }
 }
